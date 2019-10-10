@@ -16,10 +16,11 @@
 
 package com.example.android.lifecycles.step3;
 
+import android.os.SystemClock;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import android.os.SystemClock;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,6 +48,7 @@ public class LiveDataTimerViewModel extends ViewModel {
 
                 // setValue() cannot be called from a background thread so post to main thread.
                 //TODO post the new value with LiveData.postValue()
+                mElapsedTime.postValue(newValue);
             }
         }, ONE_SECOND, ONE_SECOND);
 
