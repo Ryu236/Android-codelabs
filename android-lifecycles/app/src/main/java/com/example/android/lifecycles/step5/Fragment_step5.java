@@ -56,16 +56,25 @@ public class Fragment_step5 extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // TODO: Set the ViewModel's value when the change comes from the user.
+                mSeekBarViewModel.seekbarValue.setValue(progress);
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
 
         // TODO: Update the SeekBar when the ViewModel is changed.
         // mSeekBarViewModel.seekbarValue.observe(...
+        mSeekBarViewModel.seekbarValue.observe(getActivity(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                mSeekBar.setProgress(integer);
+            }
+        });
     }
 }
