@@ -24,9 +24,10 @@ class TrackerService : Service() {
         loginToFirebase()
     }
 
+    @Suppress("DEPRECATION")
     private fun buildNotification() {
         val stop = "stop"
-        registerReceiver(stopReceiver(), IntentFilter(stop))
+        registerReceiver(StopReceiver(), IntentFilter(stop))
         val broadcastIntent: PendingIntent = PendingIntent.getBroadcast(
             this, 0, Intent(stop), PendingIntent.FLAG_UPDATE_CURRENT
         )
@@ -40,11 +41,11 @@ class TrackerService : Service() {
         startForeground(1, builder.build())
     }
 
-    protected fun stopReceiver: BroadcastReceiver {
+    inner class StopReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             Log.d(TAG, "received stop broadcast")
             // Stop the service when the notification is tapped
-            unregisterReceiver(stopReceiver())
+            unregisterReceiver(StopReceiver())
             stopSelf()
         }
     }
