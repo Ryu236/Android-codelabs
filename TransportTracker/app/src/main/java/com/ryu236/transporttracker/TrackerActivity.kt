@@ -20,7 +20,7 @@ class TrackerActivity : Activity() {
         setContentView(R.layout.activity_main)
 
         // Check GPS is enabled
-        val lm: LocationManager = getSystemService(Context.LOCATION_SERVICE)
+        val lm: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (!lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             Toast.makeText(this, "Please enable location services", Toast.LENGTH_SHORT).show()
             finish()
@@ -36,9 +36,9 @@ class TrackerActivity : Activity() {
         if (permission == PackageManager.PERMISSION_GRANTED) {
             startTrackerService()
         } else {
-            ActivityCompat.requestPermissions(this, String[]{
-                Manifest.permission.ACCESS_FINE_LOCATION
-            }, PERMISSIONS_REQUEST)
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSIONS_REQUEST
+            )
         }
     }
 
